@@ -29,23 +29,5 @@ selection = st.sidebar.selectbox("Disease State:", disease_options)
 if selection:
     OTC_df = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
 
-    # If 'Question' column is not in the dataframe, print an error message and return
-    if 'Question' not in OTC_df.columns:
-        st.error(f"'Question' column not found in the data. Columns found: {OTC_df.columns}")
         print(OTC_df.columns)
         
-
-    flag = 0
-    for index, row in OTC_df.iterrows():
-        question = row['Question']
-        option1 = row['Option 1']
-        option2 = row['Option 2']
-        
-        user_response = st.radio(question, options=[option1, option2])
-        if user_response == option2:
-            flag += 1
-
-    if flag == len(OTC_df):
-        st.markdown(f"All medications suitable for {selection}:")
-        for med in medications[selection]:
-            st.markdown(med)
