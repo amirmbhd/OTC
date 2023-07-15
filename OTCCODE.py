@@ -42,24 +42,36 @@ if selection:
     # Initially, assume the patient is eligible for all medications
     eligible_meds = [med[0] for med in medications[selection]]
 
+
     for index, row in OTC_df.iterrows():
         question = row['Question']
         option1 = row['Option 1']
         option2 = row['Option 2']
-
+    
         user_response = st.radio(question, options=[option1, option2])
         
         if user_response == option1:
-            options = row['options']
-
+            options = str(row['options'])
+    
             # If the options column says "NONE", the patient is not eligible for any medication
             if options == 'NONE':
                 eligible_meds = []
                 st.markdown("Based on your responses, you are not eligible for over the counter medications. Please consult a healthcare provider.")
                 break
             else:
-                options = list(map(int, options.split(',')))  # Split and convert string numbers to int
-                eligible_meds = list(set(eligible_meds) & set(options))  # Intersection of eligible_meds and options
+                # Check if options can be split, indicating multiple eligible medications
+                if ',' in options:
+                    options = list(map(int, options.split(',')))  # Split and convert string numbers to int
+                    eligible_meds = list(set(eligible_meds) & set(options))  # Intersection of eligible_meds and options
+                else:
+                    # If options cannot be split, it is a single number
+                    options = [int(options)]  # Convert the single number to int and put it in a list
+                    eligible_meds = list(set(eligible_meds) & set(options))  # Intersection of eligible_meds and options
+    
+
+
+
+
 
     # Display eligible medications
     if eligible_meds:
