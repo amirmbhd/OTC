@@ -16,5 +16,5 @@ def load_images(image_name):
     img = Image.open(image_name)
     return st.image(img, width=800)
 
-c_image = 'diab.png'
+c_image = 'Baner.png'
 load_images(c_image)
