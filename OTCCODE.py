@@ -64,3 +64,4 @@ if selection:
         st.write("Based on your responses, you are eligible for the following medications:")
         for num in eligible_medications:
             st.write(disease_states[selection][num])
+
