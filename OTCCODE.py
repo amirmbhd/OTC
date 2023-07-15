@@ -60,11 +60,12 @@ if selection == "Pain Control":
     """)
 if selection == "Constipation":
     st.sidebar.markdown("""
-    Constipation is a common condition that affects the digestive system - patients have difficulty passing stool or are unable to have regular bowel movements. 
-    Luckily, there are several products that are available over the counter to treat this condition. Each type of medication can provide relief for patients, and there are many different formulation options as well. 
-    It should be noted that these over-the-counter options are only meant to treat short-term constipation. Some cases of constipation may require prescription medication or further medical attention                        
+    Constipation is a common condition that affects the digestive system - patients have difficulty passing stool or are unable to have
+    regular bowel movements. Luckily, there are several products that are available over the counter to treat this condition. Each type of
+    medication can provide relief for patients,and there are many different formulation options as well. It should be noted that
+    these over-the-counter options are only meant to treat short-term constipation.
+    Some cases of constipation may require prescription medication or further medical attention.
     """)
-
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
     sheet.columns = sheet.columns.str.strip()
