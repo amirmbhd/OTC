@@ -22,7 +22,7 @@ st.markdown(
 )
 
 st.sidebar.radio(
-            "Do you want to check if you have completed the series for {vaccine_key}?",
-            ["No", "Yes","GERD", "ALLERGIES"],
+            "Please select the disease state that you would like to get recommendation on?",
+            ["GERD", "Allergies","GERD", "ALLERGIES"],
             index=0,
             )
