@@ -92,7 +92,7 @@ if selection:
             if options.lower() == "none":
                 ineligible = True  # set ineligible to True
                 eligible_medications = set()
-                break
+                    break
             else:
                 option_numbers = list(map(int, options.split(',')))
                 eligible_medications.intersection_update(option_numbers)
