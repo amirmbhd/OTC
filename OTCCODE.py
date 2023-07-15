@@ -25,8 +25,8 @@ disease_states = {
                   8:'"Excedrin, Goodys Powder (acetaminophen + aspirin + caffeine)"', 
                   9:'Orajel (benzocaine oral topical)',
                   10: "Biofreeze (menthol)", 11: "Tums (antacids)", 12: "Pepto Bismol (Bismuth Subsalicylate)"},
-    "Constipation": {1:'Psyllium', 2:'Polycarbophil', 3:'Methylcellulose', 4:'Bisacodyl', 5:'Senna', 6:'Polyethylene glycol',
-                     7:'Docusate', 8:'Magnesium citrate', 9:'Mineral oil', 10:'Glycerin suppositories', 11:'Saline enemas'}
+    "Constipation": {1:'Metamucil (psyllium)', 2:'FiberCon, Fiber Lax (polycarbophil)', 3:'Citrucel (methylcellulose)', 4:'Dulcolax (bisacodyl)', 5:'Senokot (senna)', 6:'MiraLax (polyethylene glycol)',
+                     7:'Colace (docusate)', 8:'Citroma (magnesium citrate)', 9:'Kondremul (mineral oil)', 10:'Glycerin suppositories', 11:'Saline enemas'}
 }
 
     
