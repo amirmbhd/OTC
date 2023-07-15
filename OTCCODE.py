@@ -36,7 +36,9 @@ st.markdown(
 )
 
 st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
-selection = st.sidebar.selectbox("Disease State:", list(disease_states.keys()))
+# Adding an extra option with an empty string and making it default by placing it at index 0
+options = [""] + list(disease_states.keys())
+selection = st.sidebar.selectbox("Disease State:", options)
 
 if selection == "Allergies":
     st.sidebar.text("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
@@ -74,8 +76,6 @@ if selection:
                     eligible_medications.intersection_update(option_numbers)
             continue
 
-        
-  
         response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
         
         if response == option1:
