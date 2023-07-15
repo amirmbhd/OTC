@@ -32,6 +32,7 @@ if selection:
     # If 'Question' column is not in the dataframe, print an error message and return
     if 'Question' not in OTC_df.columns:
         st.error(f"'Question' column not found in the data. Columns found: {OTC_df.columns}")
+        print(OTC_df.columns)
         
 
     flag = 0
