@@ -4,10 +4,10 @@ from PIL import Image
 
 OTC_df = pd.read_excel("OTCRecommendations.xlsx")
 
-GERD = {'Drug 1',	'Drug 2',	'Drug 3',	'Drug 4',	'Drug 5',	'Drug 6',	'Drug 7',	'Drug 8',	'Drug 9',	'Drug 10',	'Drug 11',	'Drug 12'}	
-Allergies = {'Allegra 12 Hour (Fexofenadine)',	'Allegra 24 Hour (Fexofenadine)', 'Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)',	'Children's Allegra (Fexofenadine)',	'Chlor-Trimeton (Chlorpheniramine Maleate)',	'Claritin (Loratadine)View Product',	'Claritin Syrup (Loratadine)',	'Dristan Long Lasting Menthol Spray (Oxymetazoline)',	'Dristan Long Lasting Nasal Mist (Oxymetazoline)',	'Otrivin (Xylometazoline Hydrochloride)',	'Reactine (Cetirizine) 5 mg',	'Zyrtec (Cetrizine)'}	
-Pain Control = {'Drug 1',	'Drug 2',	'Drug 3',	'Drug 4',	'Drug 5',	'Drug 6',	'Drug 7',	'Drug 8',	'Drug 9',	'Drug 10',	'Drug 11',	'Drug 12'}
-Constipation = {'Psyllium',	'Polycarbophil',	'Methylcellulose',	'Bisacodyl',	'Senna',	'Polyethylene glycol',	'Docusate',	'Magnesium citrate',	'Mineral oil',	'Glycerin suppositories',	'Saline enemas', Constipation}
+GERD = ['Drug 1',	'Drug 2',	'Drug 3',	'Drug 4',	'Drug 5',	'Drug 6',	'Drug 7',	'Drug 8',	'Drug 9',	'Drug 10',	'Drug 11',	'Drug 12']
+Allergies = {'Allegra 12 Hour (Fexofenadine)',	'Allegra 24 Hour (Fexofenadine)', 'Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)',	'Children's Allegra (Fexofenadine)',	'Chlor-Trimeton (Chlorpheniramine Maleate)',	'Claritin (Loratadine)View Product',	'Claritin Syrup (Loratadine)',	'Dristan Long Lasting Menthol Spray (Oxymetazoline)',	'Dristan Long Lasting Nasal Mist (Oxymetazoline)',	'Otrivin (Xylometazoline Hydrochloride)',	'Reactine (Cetirizine) 5 mg',	'Zyrtec (Cetrizine)']	
+Pain Control = ['Drug 1',	'Drug 2',	'Drug 3',	'Drug 4',	'Drug 5',	'Drug 6',	'Drug 7',	'Drug 8',	'Drug 9',	'Drug 10',	'Drug 11',	'Drug 12']
+Constipation = ['Psyllium',	'Polycarbophil',	'Methylcellulose',	'Bisacodyl',	'Senna',	'Polyethylene glycol',	'Docusate',	'Magnesium citrate',	'Mineral oil',	'Glycerin suppositories',	'Saline enemas', Constipation]
 
 def load_images(image_name):
     img = Image.open(image_name)
