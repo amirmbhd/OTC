@@ -56,7 +56,7 @@ if disease_state != " ":
 
     if df.empty:
         st.write("Welcome to the application!")
-        return
+
 
     for i in range(len(sheet)):
         question = sheet.loc[i, "Question"]
