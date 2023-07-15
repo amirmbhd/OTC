@@ -23,7 +23,7 @@ st.markdown(
 )
 
 st.sidebar.markdown("Please select the disease state that you would like to get recommendation on?")
-selection = st.sidebar.selectbox(disease_options)
+selection = st.sidebar.selectbox("aa",disease_options)
 
                                  
 st.sidebar.markdown("**Start Here**", unsafe_allow_html=True)
