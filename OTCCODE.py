@@ -71,9 +71,6 @@ if selection:
     sheet.columns = sheet.columns.str.strip()
     eligible_medications = set(disease_states[selection].keys())
     age = None
-    ineligible = False  # new variable to track ineligibility
-    eligible_medications = set(disease_states[selection].keys())
-    age = None
 
     for i in range(len(sheet)):
         question = sheet.loc[i, "Question"]
@@ -85,33 +82,32 @@ if selection:
             age = st.selectbox(question, list(range(1,101)))
             continue
 
-
-    if question == "Age condition":
-        # [Previous codes ...]
-        if eval(option1):
-            if options.lower() == "none":
-                ineligible = True  # set ineligible to True
-                eligible_medications = set()
+        if question == "Age condition":
+            option1 = option1.replace("Age", str(age))
+            if eval(option1):
+                if options.lower() == "none":
+                    st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
+                    eligible_medications = set()
                     break
+                else:
+                    option_numbers = list(map(int, options.split(',')))
+                    eligible_medications.intersection_update(option_numbers)
+            continue
+
+        response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
+        
+        if response == option1:
+            if options.lower() == "none":
+                st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy.")
+                eligible_medications = set()
+                break
             else:
                 option_numbers = list(map(int, options.split(',')))
                 eligible_medications.intersection_update(option_numbers)
-        continue
 
-    response = st.radio(question, options = [option1, option2], index=1)
-
-    if response == option1:
-        if options.lower() == "none":
-            ineligible = True  # set ineligible to True
-            eligible_medications = set()
-            break
-        else:
-            option_numbers = list(map(int, options.split(',')))
-            eligible_medications.intersection_update(option_numbers)
-
-if eligible_medications:
-    st.write("Based on your responses, you are eligible for the following medications:")
-    for num in eligible_medications:
-        st.write(disease_states[selection][num])
-elif ineligible:  # show the ineligibility message only once here
-    st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy.")
+    if eligible_medications:
+        st.write("Based on your responses, you are eligible for the following medications:")
+        for num in eligible_medications:
+            st.write(disease_states[selection][num])
+    else:
+        st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy. ")
