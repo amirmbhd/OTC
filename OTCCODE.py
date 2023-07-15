@@ -50,6 +50,6 @@ if selection:
             flag += 1
 
     if flag == len(OTC_df):
-        st.markdown(f"All medications suitable for {selection}:")
+        st.markdown(f"**All medications suitable for {selection}:**")
         for med in medications[selection]:
             st.markdown(med[1])  # Only display the drug name
