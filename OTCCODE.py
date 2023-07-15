@@ -53,7 +53,7 @@ if selection:
     
 if disease_states != " ":
 
-    df = pd.read_excel(disease_state + ".xlsx") # assuming filename is same as disease_state
+    df = pd.read_excel(disease_states + ".xlsx") # assuming filename is same as disease_state
 
     if df.empty:
         st.write("Welcome to the application!")
