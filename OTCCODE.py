@@ -1,41 +1,63 @@
-import pandas as pd
 import streamlit as st
+import pandas as pd
+from PIL import Image
 
-# Define your dictionary
-disease_state_dict = {
-    'GERD': ['Omeprazole', 'Esomeprazole', 'Famotidine', 'Calcium Carbonate', 'Magnesium Hydroxide'],
-    'Allergies': ['Allegra 12 Hour (Fexofenadine)', 'Allegra 24 Hour (Fexofenadine)', "Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)", "Children's Allegra (Fexofenadine)", 'Chlor-Trimeton (Chlorpheniramine Maleate)', 'Claritin (Loratadine)View Product', 'Claritin Syrup (Loratadine)', 'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 'Dristan Long Lasting Nasal Mist (Oxymetazoline)', 'Otrivin (Xylometazoline Hydrochloride)', 'Reactine (Cetirizine) 5 mg', 'Zyrtec (Cetrizine)', 'Benadryl'],
-    'Pain Control': ['drug A', 'drug B', 'drug C'],
-    'Constipation': ['Psyllium', 'Polycarbophil', 'Methylcellulose', 'Bisacodyl', 'Senna', 'Polyethylene glycol', 'Docusate', 'Magnesium citrate', 'Mineral oil', 'Glycerin suppositories', 'Saline enemas']
+def load_images(image_name):
+    img = Image.open(image_name)
+    return st.image(img, width=700)
+
+c_image = 'Baner.png'
+load_images(c_image)
+
+disease_states = {
+    "GERD": {1:'Omeprazole', 2:'Esomeprazole', 3:'Famotidine', 4:'Calcium Carbonate', 5:'Magnesium Hydroxide'},
+    "Allergies": {1:'Allegra 12 Hour (Fexofenadine)', 2:'Allegra 24 Hour (Fexofenadine)', 
+                  3:"Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)",
+                  4:"Children's Allegra (Fexofenadine)", 5:'Chlor-Trimeton (Chlorpheniramine Maleate)',
+                  6:'Claritin (Loratadine)', 7:'Claritin Syrup (Loratadine)',
+                  8:'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 
+                  9:'Dristan Long Lasting Nasal Mist (Oxymetazoline)',
+                  10:'Otrivin (Xylometazoline Hydrochloride)', 11:'Reactine (Cetirizine) 5 mg', 12:'Zyrtec (Cetrizine)', 13:'Benadryl'},
+    "Pain Control": {1:'drug A', 2:'drug B', 3:'drug C'},
+    "Constipation": {1:'Psyllium', 2:'Polycarbophil', 3:'Methylcellulose', 4:'Bisacodyl', 5:'Senna', 6:'Polyethylene glycol',
+                     7:'Docusate', 8:'Magnesium citrate', 9:'Mineral oil', 10:'Glycerin suppositories', 11:'Saline enemas'}
 }
 
-# Display the selection box
-disease_state = st.sidebar.selectbox("Disease State", [" ", "GERD", "Allergies", "Pain Control", "Constipation"])
+st.title("Patient Over The Counter Recommendation Program")
 
-if disease_state == "Allergies":
-    st.sidebar.write("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
+st.markdown(
+    "Welcome to the OTC Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
+)
 
-if disease_state != " ":
+st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
+selection = st.sidebar.selectbox("Disease State:", list(disease_states.keys()))
 
-    df = pd.read_excel(disease_state + ".xlsx") # assuming filename is same as disease_state
-    df.columns = df.columns.str.strip() # stripping any leading or trailing spaces from column names
+if selection == "Allergies":
+    st.sidebar.text("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
 
-    eligible_medications = set(range(1, len(disease_state_dict[disease_state])+1)) # initially all meds are eligible
+if selection:
+    sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
+    
+    # Strip leading or trailing spaces from column names
+    sheet.columns = sheet.columns.str.strip()
 
+    eligible_medications = set(disease_states[selection].keys())
     age = None
 
-    for index, row in df.iterrows():
-        question = row['Question']
-        option1 = row['Option 1']
-        option2 = row['Option 2']
-        options = row['Options']
-
+    for i in range(len(sheet)):
+        question = sheet.loc[i, "Question"]
+        option1 = sheet.loc[i, "Option 1"]
+        option2 = sheet.loc[i, "Option 2"]
+        options = str(sheet.loc[i, "options"])  # Cast to string to avoid errors in case the value is not a string
+        
         if question == "Please enter your age:":
-            age = st.selectbox(question, list(range(1,101)))
+            age = st.number_input(question)
             continue
 
         if question == "Age condition":
+            # Replace "Age" in option1 with the `age` variable
             option1 = option1.replace("Age", str(age))
+            # Evaluate the condition in "Option 1" with the age
             if eval(option1):
                 if options.lower() == "none":
                     st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
@@ -46,9 +68,11 @@ if disease_state != " ":
                     eligible_medications.intersection_update(option_numbers)
             continue
 
-        selected_option = st.radio(question, [option1, option2], index=1)
-
-        if selected_option == option1:
+        
+  
+        response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
+        
+        if response == option1:
             if options.lower() == "none":
                 st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
                 eligible_medications = set()
@@ -56,7 +80,8 @@ if disease_state != " ":
             else:
                 option_numbers = list(map(int, options.split(',')))
                 eligible_medications.intersection_update(option_numbers)
-
+            
     if eligible_medications:
-        meds = [disease_state_dict[disease_state][i-1] for i in eligible_medications]
-        st.write(f"Based on your responses, you are eligible for the following medications: {', '.join(meds)}")
+        st.write("Based on your responses, you are eligible for the following medications:")
+        for num in eligible_medications:
+            st.write(disease_states[selection][num])
