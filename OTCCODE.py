@@ -41,8 +41,18 @@ options = [""] + list(disease_states.keys())
 selection = st.sidebar.selectbox("Disease State:", options)
 
 if selection == "Allergies":
-    st.sidebar.text("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
-
+    st.sidebar.markdown("""
+    Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger.
+    Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, 
+    but if they are persistent or become worse, medical attention is recommended.
+    """)
+if selection == "GERD":
+    st.sidebar.markdown("""
+    GERD, or gastroesophageal reflux disease, is when stomach acid flows back into the esophagus, causing symptoms like heartburn and difficulty swallowing. 
+    Over-the-counter medications such as antacids or acid reducers can help provide relief. If symptoms persist or worsen, it is recommended to seek medical attention for a proper diagnosis and potentially stronger medications. 
+    Consulting with a healthcare professional is important for personalized guidance and treatment options.		
+    """)
+    
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
     
