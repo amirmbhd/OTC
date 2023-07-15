@@ -51,7 +51,7 @@ if selection:
         options = str(sheet.loc[i, "options"])  # Cast to string to avoid errors in case the value is not a string
         
         if question == "Please enter your age:":
-            age = st.number_input(question)
+            age = st.selectbox(question, list(range(1,101)))
             continue
 
         if question == "Age condition":
