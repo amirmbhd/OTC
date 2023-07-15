@@ -18,7 +18,13 @@ disease_states = {
                   8:'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 
                   9:'Dristan Long Lasting Nasal Mist (Oxymetazoline)',
                   10:'Otrivin (Xylometazoline Hydrochloride)', 11:'Reactine (Cetirizine) 5 mg', 12:'Zyrtec (Cetrizine)', 13:'Benadryl'},
-    "Pain Control": {1:'drug A', 2:'drug B', 3:'drug C'},
+    "Pain Control": {1:'Acetaminophen (Tylenol)', 2:'Ibuprofen (Advil, Motrin)', 
+                  3:"Naproxen (Aleve)",
+                  4:"Aspirin", 5:'Topical Lidocaine (Lidoderm)',
+                  6:'Menthol + Methyl salycilate (Icy Hot) ', 7:'Topical capsaicin',
+                  8:'"Acetaminophen + Aspirin + Caffeine (Excedrin, Goody's Powder)"', 
+                  9:'Benzocaine Oral Topical (Orajel)',
+                  10:'Antacids (Tums)'},
     "Constipation": {1:'Psyllium', 2:'Polycarbophil', 3:'Methylcellulose', 4:'Bisacodyl', 5:'Senna', 6:'Polyethylene glycol',
                      7:'Docusate', 8:'Magnesium citrate', 9:'Mineral oil', 10:'Glycerin suppositories', 11:'Saline enemas'}
 }
