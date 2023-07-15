@@ -24,7 +24,7 @@ disease_states = {
                   6:'Icy Hot (menthol + methyl salicylate)', 7:'Topical capsaicin',
                   8:'"Excedrin, Goodys Powder (acetaminophen + aspirin + caffeine)"', 
                   9:'Orajel (benzocaine oral topical)',
-                  10:'Biofreeze (menthol) , 11: '"Antacids(Tums)"'},
+                  10:'Biofreeze (menthol) , 11:'"Tums (antacids)"', 12:'Pepto Bismol (Bismuth Subsalicylate)'},
     "Constipation": {1:'Psyllium', 2:'Polycarbophil', 3:'Methylcellulose', 4:'Bisacodyl', 5:'Senna', 6:'Polyethylene glycol',
                      7:'Docusate', 8:'Magnesium citrate', 9:'Mineral oil', 10:'Glycerin suppositories', 11:'Saline enemas'}
 }
