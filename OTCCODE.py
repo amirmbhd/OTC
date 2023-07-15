@@ -52,7 +52,19 @@ if selection == "GERD":
     Over-the-counter medications such as antacids or acid reducers can help provide relief. If symptoms persist or worsen, it is recommended to seek medical attention for a proper diagnosis and potentially stronger medications. 
     Consulting with a healthcare professional is important for personalized guidance and treatment options.		
     """)
-    
+if selection == "Pain Control":
+    st.sidebar.markdown("""
+    Pain management often involves the use of over-the-counter (OTC) medications to alleviate symptoms. OTC pain relievers such as acetaminophen (Tylenol) or nonsteroidal anti-inflammatory drugs (NSAIDs) like ibuprofen (Advil) or naproxen (Aleve) can be effective in reducing mild to moderate pain. 
+    These medications can help with headaches, muscle aches, menstrual cramps, and minor injuries. However, it's important to carefully follow the instructions, recommended dosage, and duration of use provided on the packaging. 
+    If pain persists or becomes severe, it is advisable to consult with a healthcare professional for a proper diagnosis and guidance on the most appropriate treatment options. Remember, OTC pain medications may not be suitable for everyone, so it's essential to seek medical advice to ensure safe and effective pain management.			
+    """)
+if selection == "Constipation":
+    st.sidebar.markdown("""
+    Constipation is a common condition that affects the digestive system - patients have difficulty passing stool or are unable to have regular bowel movements. 
+    Luckily, there are several products that are available over the counter to treat this condition. Each type of medication can provide relief for patients, and there are many different formulation options as well. 
+    It should be noted that these over-the-counter options are only meant to treat short-term constipation. Some cases of constipation may require prescription medication or further medical attention						
+    """)
+
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
     
