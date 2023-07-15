@@ -30,10 +30,10 @@ disease_states = {
 }
 
     
-st.title("Patient Over The Counter Recommendation Program")
+st.title("OTCRec")
 
 st.markdown(
-    "Welcome to the OTC Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
+    "Welcome to the Patient Over The Counter Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
 )
 
 st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
