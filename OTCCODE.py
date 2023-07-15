@@ -37,18 +37,22 @@ if selection == "Allergies":
 
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
+    
+    # Strip leading or trailing spaces from column names
+    sheet.columns = sheet.columns.str.strip()
+
     eligible_medications = set(disease_states[selection].keys())
 
     for i in range(len(sheet)):
         question = sheet.loc[i, "Question"]
         option1 = sheet.loc[i, "Option 1"]
         option2 = sheet.loc[i, "Option 2"]
-        options = sheet.loc[i, "options"]
+        options = str(sheet.loc[i, "options"])  # Cast to string to avoid errors in case the value is not a string
         
         response = st.radio(question, options = [option1, option2])
         
         if response == option1:
-            if str(options).lower() == "none":
+            if options.lower() == "none":
                 st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
                 eligible_medications = set()
                 break
