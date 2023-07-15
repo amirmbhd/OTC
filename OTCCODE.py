@@ -21,7 +21,7 @@ for i in range(len(sheet)):
                 break
             else:
                 # ... rest of your code in this condition ...
-
+    continue
     response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
 
     if response == option1:
