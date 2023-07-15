@@ -37,6 +37,13 @@ if selection == "Allergies":
 
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
+    
+    # Ensure column names are exactly as expected
+    assert 'Question' in sheet.columns, "Column 'Question' not in sheet columns. Please check your excel sheet."
+    assert 'Option 1' in sheet.columns, "Column 'Option 1' not in sheet columns. Please check your excel sheet."
+    assert 'Option 2' in sheet.columns, "Column 'Option 2' not in sheet columns. Please check your excel sheet."
+    assert 'options' in sheet.columns, "Column 'options' not in sheet columns. Please check your excel sheet."
+
     eligible_medications = set(disease_states[selection].keys())
 
     for i in range(len(sheet)):
