@@ -98,7 +98,7 @@ if selection:
         
         if response == option1:
             if options.lower() == "none":
-                st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
+                st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy.")
                 eligible_medications = set()
                 break
             else:
@@ -110,4 +110,4 @@ if selection:
         for num in eligible_medications:
             st.write(disease_states[selection][num])
     else:
-        st.write("There are no OTC recommendations based on your responses.")
+        st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy. ")
