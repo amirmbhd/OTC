@@ -1,154 +1,113 @@
 import streamlit as st
 import pandas as pd
+from PIL import Image
 
-def color_rows(row):
-    if row['Status'] == 'Completed':
-        color = 'green'
-    elif row['Status'] == 'In Progress':
-        color = 'orange'
-    else: # Status is 'Pending'
-        color = 'red'
-    return ['color: %s' % color]*len(row.values)
+def load_images(image_name):
+    img = Image.open(image_name)
+    return st.image(img, width=700)
 
-# Read the vaccine information from the Excel file
-vaccine_df = pd.read_excel("vaccines3.xlsx")
+c_image = 'Baner.png'
+load_images(c_image)
 
-# Convert the DataFrame to a dictionary
-vaccines = {}
-for _, row in vaccine_df.iterrows():
-    vaccine = row["Vaccine"]
-    doses = row["# of doses"]
-    age_range = range(row["Minimum Age"], row["Maximum Age"] + 1)
-    doses_info = {}
-    timeline = {}
-    for i in range(1, 6):  # Adjusted to include Dose 1 to Dose 5
-        if row[f"Dose {i}"] != 'X':  # If the cell is not 'X'
-            dose_min = row[f"Dose {i} Min"]
-            dose_max = row[f"Dose {i} Max"]
-            doses_info[f"Dose {i}"] = {"min": dose_min, "max": dose_max}
-            timeline[f"Dose {i}"] = row[f"Dose {i}"]
-    vaccines[vaccine] = {"ages": age_range, "doses": doses, "doses_info": doses_info, "timeline": timeline}
+disease_states = {
+    "GERD": {1:'Prilosec (omeprazole)', 2:'Nexium (esomeprazole)', 3:'Pepcid (famotidine)', 4:'Tums (calcium carbonate)', 5:'Milk of Magnesia (magnesium hydroxide)'},
+    "Allergies": {1:'Allegra 12 Hour (Fexofenadine)', 2:'Allegra 24 Hour (Fexofenadine)', 
+                  3:"Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)",
+                  4:"Children's Allegra (Fexofenadine)", 5:'Chlor-Trimeton (Chlorpheniramine Maleate)',
+                  6:'Claritin (Loratadine)', 7:'Claritin Syrup (Loratadine)',
+                  8:'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 
+                  9:'Dristan Long Lasting Nasal Mist (Oxymetazoline)',
+                  10:'Otrivin (Xylometazoline Hydrochloride)', 11:'Reactine (Cetirizine) 5 mg', 12:'Zyrtec (Cetrizine)', 13:'Benadryl'},
+    "Pain Control": {1:'Tylenol (acetaminophen)', 2:'Advil, Motrin (ibuprofen)', 
+                  3:"Aleve (naproxen)",
+                  4:"Aspirin", 5:'Lidoderm (topical lidocaine)',
+                  6:'Icy Hot (menthol + methyl salicylate)', 7:'Topical capsaicin',
+                  8:'Excedrin, Goodys Powder (acetaminophen + aspirin + caffeine)', 
+                  9:'Orajel (benzocaine oral topical)',
+                  10: "Biofreeze (menthol)", 11: "Tums (antacids)", 12: "Pepto Bismol (Bismuth Subsalicylate)"},
+    "Constipation": {1:'Metamucil (psyllium)', 2:'FiberCon, Fiber Lax (polycarbophil)', 3:'Citrucel (methylcellulose)', 4:'Dulcolax (bisacodyl)', 5:'Senokot (senna)', 6:'MiraLax (polyethylene glycol)',
+                     7:'Colace (docusate)', 8:'Citroma (magnesium citrate)', 9:'Kondremul (mineral oil)', 10:'Glycerin suppositories', 11:'Saline enemas'}
+}
 
-# Define the months and years options
-months_options = list(range(13))  # 0 to 12
-years_options = list(range(19))  # 0 to 18
-
-st.title("Vaccine Recommendation Program")
+    
+st.title("OTCRec: An Efficient Approach to Community Pharmacy Counseling")
 
 st.markdown(
-    "Welcome to the Vaccine Recommendation Program! This program will tell you which vaccines you are eligible for based on your age. You can also enter which vaccines you have already taken, and the program will tell you if you need any more doses. **Enter the information in the sidebar to get started.**"
+    "Welcome to the Patient Over The Counter Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
 )
 
-st.sidebar.markdown("**Please enter your age:**")
-age_month = st.sidebar.selectbox("Months:", months_options)
-age_year = st.sidebar.selectbox("Years:", years_options)
+st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
+options = [""] + list(disease_states.keys())
+selection = st.sidebar.selectbox("Disease State:", options)
 
-# Calculate the age in days
-age = (age_month * 30) + (age_year * 365)
+if selection == "Allergies":
+    st.sidebar.markdown("""
+    Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger.
+    Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, 
+    but if they are persistent or become worse, medical attention is recommended.
+    """)
+if selection == "GERD":
+    st.sidebar.markdown("""
+    GERD, or gastroesophageal reflux disease, is when stomach acid flows back into the esophagus, causing symptoms like heartburn and difficulty swallowing. 
+    Over-the-counter medications such as antacids or acid reducers can help provide relief. If symptoms persist or worsen, it is recommended to seek medical attention for a proper diagnosis and potentially stronger medications. 
+    Consulting with a healthcare professional is important for personalized guidance and treatment options.        
+    """)
+if selection == "Pain Control":
+    st.sidebar.markdown("""
+    Pain management often involves the use of over-the-counter (OTC) medications to alleviate symptoms. These medications can help with headaches, muscle aches,
+    menstrual cramps, and minor injuries. However, it's important to carefully follow the instructions, recommended dosage, and duration of use provided on the packaging.
+    If pain persists or becomes severe, medical attention is recommended.
+    """)
+if selection == "Constipation":
+    st.sidebar.markdown("""
+    Constipation is a common condition that affects the digestive system - patients have difficulty passing stool or are unable to have
+    regular bowel movements. Luckily, there are several products that are available over the counter to treat this condition. Each type of
+    medication can provide relief for patients,and there are many different formulation options as well. It should be noted that
+    these over-the-counter options are only meant to treat short-term constipation.
+    Some cases of constipation may require prescription medication or further medical attention.
+    """)
+if selection:
+    sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
+    sheet.columns = sheet.columns.str.strip()
+    eligible_medications = set(disease_states[selection].keys())
+    age = None
 
-if age > 0:
-    # Determine which vaccines the user is eligible for
-    eligible_vaccines = {k: v for k, v in vaccines.items() if age in v["ages"]}
+    for i in range(len(sheet)):
+        question = sheet.loc[i, "Question"]
+        option1 = sheet.loc[i, "Option 1"]
+        option2 = sheet.loc[i, "Option 2"]
+        options = str(sheet.loc[i, "options"])  # Cast to string to avoid errors in case the value is not a string
+        
+        if question == "Please enter your age:":
+            age = st.selectbox(question, list(range(1,101)))
+            continue
 
-    # Special condition for similar vaccines
-    if (
-        "Pneumococcal conjugate (PCV13, PCV15, PPSV23)" in eligible_vaccines
-        and "Pneumococcal conjugate (PCV13, PCV15)" in eligible_vaccines
-    ):
-        eligible_vaccines.pop("Pneumococcal conjugate (PCV13, PCV15)")
-
-    # Special condition for interchangeable vaccines
-    interchangeable_vaccines = [
-        "Meningococcal ACWY-D",
-        "Meningococcal ACWY-CRM",
-        "Meningococcal ACWY-TT",
-        "Meningococcal B",
-    ]
-    interchangeable_vaccines_eligible = [
-        vaccine for vaccine in interchangeable_vaccines if vaccine in eligible_vaccines
-    ]
-    meningococcal_note = False
-    if len(interchangeable_vaccines_eligible) > 1:
-        # Replace all the interchangeable vaccines with "Meningococcal"
-        for vaccine in interchangeable_vaccines_eligible:
-            eligible_vaccines.pop(vaccine)
-        closest_vaccine = min(
-            interchangeable_vaccines_eligible,
-            key=lambda vaccine: abs(min(vaccines[vaccine]["ages"]) - age),
-        )
-        eligible_vaccines[f"Meningococcal: {closest_vaccine}"] = vaccines[closest_vaccine]
-        meningococcal_note = True
-
-    # Sidebar for already taken vaccines
-    st.sidebar.markdown(
-        "**<span style='color:black'>Please select the vaccines you have already taken (You can select multiple):</span>**",
-        unsafe_allow_html=True,
-    )
-    vaccine_selection = st.sidebar.multiselect(
-        "", list(eligible_vaccines.keys()) + ["None"]
-    )
-
-    vaccines_not_taken = [
-        vaccine for vaccine in eligible_vaccines.keys() if vaccine not in vaccine_selection
-    ]
-
-    # Define the data for the table
-    data = []
-    for vaccine, info in eligible_vaccines.items():
-        status = "Completed" if vaccine in vaccine_selection else "Pending"
-        data.append([vaccine, info["doses"], status])
-
-    # Create the DataFrame
-    df = pd.DataFrame(data, columns=["Vaccine Name", "Total Doses", "Status"])
-    df = df.sort_values(by="Status", ascending=False)
-    df = df.reset_index(drop=True)
-
-    st.sidebar.markdown("**Check vaccine series completion:**", unsafe_allow_html=True)
-    for vaccine in vaccine_selection:
-        vaccine_key = vaccine.strip()
-        show_completion = st.sidebar.radio(
-            f"Do you want to check if you have completed the series for {vaccine_key}?",
-            ["No", "Yes"],
-            index=0,
-        )
-        if show_completion == "Yes":
-            doses_taken = st.sidebar.number_input(
-                f"How many doses of {vaccine_key} have you taken?",
-                min_value=1,
-                value=1,
-            )
-            if doses_taken > 0:
-                doses_needed = vaccines[vaccine_key]["doses"] - doses_taken  # Use 'vaccines' instead of 'eligible_vaccines'
-                if doses_needed > 0:
-                    st.sidebar.write(f"You need {doses_needed} more doses of {vaccine_key}.")
-                    df.loc[df['Vaccine Name'] == vaccine_key, 'Status'] = 'In Progress'
+        if question == "Age condition":
+            option1 = option1.replace("Age", str(age))
+            if eval(option1):
+                if options.lower() == "none":
+                    st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
+                    eligible_medications = set()
+                    break
                 else:
-                    st.sidebar.write(f"You have completed the required doses for {vaccine_key}.")
-            else:
-                df.loc[df['Vaccine Name'] == vaccine_key, 'Status'] = 'Pending'
+                    option_numbers = list(map(int, options.split(',')))
+                    eligible_medications.intersection_update(option_numbers)
+            continue
 
-    st.table(df.style.apply(color_rows, axis=1).set_properties(**{'text-align': 'center'}))
-    
-    hide_table_row_index = """
-            <style>
-            thead tr th:first-child {display:none}
-            tbody th {display:none}
-            </style>
-            """
-    # Inject CSS with Markdown
-    st.markdown(hide_table_row_index, unsafe_allow_html=True)
-    
-    if len(vaccines_not_taken) > 0:
-        st.markdown(
-            "**<span style='color:#708090'>The timeline for your remaining vaccines:</span>**",
-            unsafe_allow_html=True,
-        )
-        for vaccine in vaccines_not_taken:
-            st.markdown(
-                f"**<span style='color:#708090'>{vaccine}:</span>**", unsafe_allow_html=True
-            )
-            timeline_data = []
-            for dose, time in eligible_vaccines[vaccine]["timeline"].items():
-                timeline_data.append([dose, time])
-            timeline_df = pd.DataFrame(timeline_data, columns=["Dose", "Time"])
-            st.table(timeline_df)
+        response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
+        
+        if response == option1:
+            if options.lower() == "none":
+                st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy.")
+                eligible_medications = set()
+                break
+            else:
+                option_numbers = list(map(int, options.split(',')))
+                eligible_medications.intersection_update(option_numbers)
+
+    if eligible_medications:
+        st.write("Based on your responses, you are eligible for the following medications:")
+        for num in eligible_medications:
+            st.write(disease_states[selection][num])
+    else:
+        st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy. ")
