@@ -36,7 +36,6 @@ st.markdown(
 )
 
 st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
-# Adding an extra option with an empty string and making it default by placing it at index 0
 options = [""] + list(disease_states.keys())
 selection = st.sidebar.selectbox("Disease State:", options)
 
@@ -50,27 +49,24 @@ if selection == "GERD":
     st.sidebar.markdown("""
     GERD, or gastroesophageal reflux disease, is when stomach acid flows back into the esophagus, causing symptoms like heartburn and difficulty swallowing. 
     Over-the-counter medications such as antacids or acid reducers can help provide relief. If symptoms persist or worsen, it is recommended to seek medical attention for a proper diagnosis and potentially stronger medications. 
-    Consulting with a healthcare professional is important for personalized guidance and treatment options.		
+    Consulting with a healthcare professional is important for personalized guidance and treatment options.        
     """)
 if selection == "Pain Control":
     st.sidebar.markdown("""
     Pain management often involves the use of over-the-counter (OTC) medications to alleviate symptoms. OTC pain relievers such as acetaminophen (Tylenol) or nonsteroidal anti-inflammatory drugs (NSAIDs) like ibuprofen (Advil) or naproxen (Aleve) can be effective in reducing mild to moderate pain. 
     These medications can help with headaches, muscle aches, menstrual cramps, and minor injuries. However, it's important to carefully follow the instructions, recommended dosage, and duration of use provided on the packaging. 
-    If pain persists or becomes severe, it is advisable to consult with a healthcare professional for a proper diagnosis and guidance on the most appropriate treatment options. Remember, OTC pain medications may not be suitable for everyone, so it's essential to seek medical advice to ensure safe and effective pain management.			
+    If pain persists or becomes severe, it is advisable to consult with a healthcare professional for a proper diagnosis and guidance on the most appropriate treatment options. Remember, OTC pain medications may not be suitable for everyone, so it's essential to seek medical advice to ensure safe and effective pain management.            
     """)
 if selection == "Constipation":
     st.sidebar.markdown("""
     Constipation is a common condition that affects the digestive system - patients have difficulty passing stool or are unable to have regular bowel movements. 
     Luckily, there are several products that are available over the counter to treat this condition. Each type of medication can provide relief for patients, and there are many different formulation options as well. 
-    It should be noted that these over-the-counter options are only meant to treat short-term constipation. Some cases of constipation may require prescription medication or further medical attention						
+    It should be noted that these over-the-counter options are only meant to treat short-term constipation. Some cases of constipation may require prescription medication or further medical attention                        
     """)
 
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
-    
-    # Strip leading or trailing spaces from column names
     sheet.columns = sheet.columns.str.strip()
-
     eligible_medications = set(disease_states[selection].keys())
     age = None
 
@@ -85,9 +81,7 @@ if selection:
             continue
 
         if question == "Age condition":
-            # Replace "Age" in option1 with the `age` variable
             option1 = option1.replace("Age", str(age))
-            # Evaluate the condition in "Option 1" with the age
             if eval(option1):
                 if options.lower() == "none":
                     st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
@@ -108,8 +102,10 @@ if selection:
             else:
                 option_numbers = list(map(int, options.split(',')))
                 eligible_medications.intersection_update(option_numbers)
-            
+
     if eligible_medications:
         st.write("Based on your responses, you are eligible for the following medications:")
         for num in eligible_medications:
             st.write(disease_states[selection][num])
+    else:
+        st.write("There are no OTC recommendations based on your responses.")
