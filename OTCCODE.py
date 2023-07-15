@@ -11,7 +11,6 @@ disease_state_dict = {
 
 # Display the selection box
 disease_state = st.sidebar.selectbox("Disease State", [" ", "GERD", "Allergies", "Pain Control", "Constipation"])
-age = st.sidebar.selectbox("Age", list(range(1,101)))
 
 if disease_state == "Allergies":
     st.sidebar.write("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
@@ -23,6 +22,8 @@ if disease_state != " ":
 
     eligible_medications = set(range(1, len(disease_state_dict[disease_state])+1)) # initially all meds are eligible
 
+    age = None
+
     for index, row in df.iterrows():
         question = row['Question']
         option1 = row['Option 1']
@@ -30,7 +31,8 @@ if disease_state != " ":
         options = row['Options']
 
         if question == "Please enter your age:":
-            continue # Skip age entry question
+            age = st.selectbox(question, list(range(1,101)))
+            continue
 
         if question == "Age condition":
             option1 = option1.replace("Age", str(age))
@@ -42,7 +44,7 @@ if disease_state != " ":
                 else:
                     option_numbers = list(map(int, options.split(',')))
                     eligible_medications.intersection_update(option_numbers)
-            continue # Skip to next question
+            continue
 
         selected_option = st.radio(question, [option1, option2], index=1)
 
