@@ -20,6 +20,11 @@ st.title("Patient Over The Counter Recommendation Program")
 st.markdown(
     "Welcome to the OTC Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
 )
+
+st.sidebar.markdown("Please select the disease state that you would like to get recommendation on?")
+disease_state = st.sidebar.selectbox("GERD", "Allergies","GERD", "ALLERGIES")
+
+                                 
 st.sidebar.markdown("**Start Here**", unsafe_allow_html=True)
 st.sidebar.radio(
             "**Please select the disease state that you would like to get recommendation on?**",
