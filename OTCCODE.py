@@ -22,7 +22,7 @@ st.markdown(
 )
 
 st.sidebar.radio(
-            "Please select the disease state that you would like to get recommendation on?",
+            "**Please select the disease state that you would like to get recommendation on?**",
             ["GERD", "Allergies","GERD", "ALLERGIES"],
             index=0,
             )
