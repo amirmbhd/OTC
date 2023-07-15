@@ -22,13 +22,7 @@ st.markdown(
     "Welcome to the OTC Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
 )
 
-st.sidebar.markdown("Please select the disease state that you would like to get recommendation on?")
-selection = st.sidebar.selectbox("aa",disease_options)
+st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
+selection = st.sidebar.selectbox("Disease State:",disease_options)
 
                                  
-st.sidebar.markdown("**Start Here**", unsafe_allow_html=True)
-st.sidebar.radio(
-            "**Please select the disease state that you would like to get recommendation on?**",
-            ["GERD", "Allergies","GERD", "ALLERGIES"],
-            index=0,
-            )
