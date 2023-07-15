@@ -24,7 +24,7 @@ disease_states = {
                   6:'Icy Hot (menthol + methyl salicylate)', 7:'Topical capsaicin',
                   8:'Excedrin, Goodys Powder (acetaminophen + aspirin + caffeine)', 
                   9:'Orajel (benzocaine oral topical)',
-                  10: "Biofreeze (menthol)", 11: "Tums (antacids)", 12: "Pepto Bismol (Bismuth Subsalicylate)"},
+                  10: "Biofreeze ((menthol)", 11: "Tums (antacids)", 12: "Pepto Bismol (bismuth subsalicylate)"},
     "Constipation": {1:'Metamucil (psyllium)', 2:'FiberCon, Fiber Lax (polycarbophil)', 3:'Citrucel (methylcellulose)', 4:'Dulcolax (bisacodyl)', 5:'Senokot (senna)', 6:'MiraLax (polyethylene glycol)',
                      7:'Colace (docusate)', 8:'Citroma (magnesium citrate)', 9:'Kondremul (mineral oil)', 10:'Glycerin suppositories', 11:'Saline enemas'}
 }
