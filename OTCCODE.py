@@ -54,9 +54,9 @@ if selection == "GERD":
     """)
 if selection == "Pain Control":
     st.sidebar.markdown("""
-    Pain management often involves the use of over-the-counter (OTC) medications to alleviate symptoms. OTC pain relievers such as acetaminophen (Tylenol) or nonsteroidal anti-inflammatory drugs (NSAIDs) like ibuprofen (Advil) or naproxen (Aleve) can be effective in reducing mild to moderate pain. 
-    These medications can help with headaches, muscle aches, menstrual cramps, and minor injuries. However, it's important to carefully follow the instructions, recommended dosage, and duration of use provided on the packaging. 
-    If pain persists or becomes severe, it is advisable to consult with a healthcare professional for a proper diagnosis and guidance on the most appropriate treatment options. Remember, OTC pain medications may not be suitable for everyone, so it's essential to seek medical advice to ensure safe and effective pain management.            
+    Pain management often involves the use of over-the-counter (OTC) medications to alleviate symptoms. These medications can help with headaches, muscle aches,
+    menstrual cramps, and minor injuries. However, it's important to carefully follow the instructions, recommended dosage, and duration of use provided on the packaging.
+    If pain persists or becomes severe, medical attention is recommended.
     """)
 if selection == "Constipation":
     st.sidebar.markdown("""
