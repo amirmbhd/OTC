@@ -10,7 +10,7 @@ c_image = 'Baner.png'
 load_images(c_image)
 
 disease_states = {
-    "Please select an option": {1:'Omeprazole'},
+    " ": {1:'Omeprazole'},
     "GERD": {1:'Omeprazole', 2:'Esomeprazole', 3:'Famotidine', 4:'Calcium Carbonate', 5:'Magnesium Hydroxide'},
     "Allergies": {1:'Allegra 12 Hour (Fexofenadine)', 2:'Allegra 24 Hour (Fexofenadine)', 
                   3:"Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)",
@@ -50,6 +50,13 @@ if selection:
 
     eligible_medications = set(disease_states[selection].keys())
     age = None
+if disease_state != " ":
+
+    df = pd.read_excel(disease_state + ".xlsx") # assuming filename is same as disease_state
+
+    if df.empty:
+        st.write("Welcome to the application!")
+        return
 
     for i in range(len(sheet)):
         question = sheet.loc[i, "Question"]
