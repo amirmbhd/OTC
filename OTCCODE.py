@@ -26,6 +26,13 @@ st.markdown(
 st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
 selection = st.sidebar.selectbox("Disease State:", disease_options)
 
+if selection == "Allergies":
+    st.sidebar.markdown("""
+    Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger.
+    Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, 
+    but if they are persistent or become worse, medical attention is recommended.
+    """)
+
 if selection:
     OTC_df = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
 
