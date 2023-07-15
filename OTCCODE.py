@@ -29,5 +29,5 @@ selection = st.sidebar.selectbox("Disease State:", disease_options)
 if selection:
     OTC_df = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
 
-        print(OTC_df.columns)
+    print(OTC_df.columns)
         
