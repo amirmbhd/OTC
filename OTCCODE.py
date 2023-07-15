@@ -33,11 +33,8 @@ st.sidebar.markdown("**Please select the disease state that you would like to ge
 selection = st.sidebar.selectbox("Disease State:", list(disease_states.keys()))
 
 if selection == "Allergies":
-    st.sidebar.markdown("""
-    Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger.
-    Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, 
-    but if they are persistent or become worse, medical attention is recommended.
-    """)
+    st.sidebar.text("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
+
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
     
@@ -45,12 +42,29 @@ if selection:
     sheet.columns = sheet.columns.str.strip()
 
     eligible_medications = set(disease_states[selection].keys())
+    age = None
 
     for i in range(len(sheet)):
         question = sheet.loc[i, "Question"]
         option1 = sheet.loc[i, "Option 1"]
         option2 = sheet.loc[i, "Option 2"]
         options = str(sheet.loc[i, "options"])  # Cast to string to avoid errors in case the value is not a string
+        
+        if question == "Please enter your age:":
+            age = st.number_input(question)
+            continue
+
+        elif question == "Age condition":
+            # Evaluate the condition in "Option 1" with the age
+            if eval(option1):
+                if options.lower() == "none":
+                    st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider.")
+                    eligible_medications = set()
+                    break
+                else:
+                    option_numbers = list(map(int, options.split(',')))
+                    eligible_medications.intersection_update(option_numbers)
+            continue
         
         response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
         
