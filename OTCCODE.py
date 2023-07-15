@@ -54,7 +54,9 @@ if selection:
             age = st.number_input(question)
             continue
 
-        elif question == "Age condition":
+        if question == "Age condition":
+            # Replace "Age" in option1 with the `age` variable
+            option1 = option1.replace("Age", str(age))
             # Evaluate the condition in "Option 1" with the age
             if eval(option1):
                 if options.lower() == "none":
@@ -65,7 +67,9 @@ if selection:
                     option_numbers = list(map(int, options.split(',')))
                     eligible_medications.intersection_update(option_numbers)
             continue
+
         
+  
         response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
         
         if response == option1:
