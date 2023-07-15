@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-OTC_df = pd.read_excel("vaccines3.xlsx")
+#OTC_df = pd.read_excel("otc.xlsx")
 
 
 st.title("Patient Over The Counter Recommendation Program")
