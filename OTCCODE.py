@@ -28,7 +28,9 @@ selection = st.sidebar.selectbox("Disease State:", disease_options)
 
 if selection:
     OTC_df = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
-    print(OTC_df.columns)
+
+    # Strip leading and trailing whitespaces from column names
+    OTC_df.columns = OTC_df.columns.str.strip()
 
     flag = 0
     for index, row in OTC_df.iterrows():
@@ -44,6 +46,3 @@ if selection:
         st.markdown(f"All medications suitable for {selection}:")
         for med in medications[selection]:
             st.markdown(med)
-
-
-        
