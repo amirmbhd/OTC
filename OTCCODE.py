@@ -30,7 +30,7 @@ disease_states = {
 }
 
     
-st.title("OTCRec")
+st.title("OTCRec: An Efficient Approach to Community Pharmacy Counseling")
 
 st.markdown(
     "Welcome to the Patient Over The Counter Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
