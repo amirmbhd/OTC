@@ -12,10 +12,10 @@ load_images(c_image)
 disease_options = ["", "GERD", "Allergies","Pain Control", "Constipation"]
 
 # Predefine a dictionary with all medications per disease state
-medications = {"GERD": ['Drug 1', 'Drug 2', 'Drug 3', 'Drug 4', 'Drug 5', 'Drug 6', 'Drug 7', 'Drug 8', 'Drug 9', 'Drug 10', 'Drug 11', 'Drug 12'],
-               "Allergies": ['Allegra 12 Hour (Fexofenadine)', 'Allegra 24 Hour (Fexofenadine)', 'Buckleys Jack Jill Childrens Formula (Diphenhydramine HCI / Phenylephrine HCI)', 'Childrens Allegra (Fexofenadine)', 'Chlor-Trimeton (Chlorpheniramine Maleate)', 'Claritin (Loratadine)View Product', 'Claritin Syrup (Loratadine)', 'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 'Dristan Long Lasting Nasal Mist (Oxymetazoline)', 'Otrivin (Xylometazoline Hydrochloride)', 'Reactine (Cetirizine) 5 mg', 'Zyrtec (Cetrizine)'],
-               "Pain Control": ['Drug 1', 'Drug 2', 'Drug 3', 'Drug 4', 'Drug 5', 'Drug 6', 'Drug 7', 'Drug 8', 'Drug 9', 'Drug 10', 'Drug 11', 'Drug 12'],
-               "Constipation": ['Psyllium', 'Polycarbophil', 'Methylcellulose', 'Bisacodyl', 'Senna', 'Polyethylene glycol', 'Docusate', 'Magnesium citrate', 'Mineral oil', 'Glycerin suppositories', 'Saline enemas']}
+medications = {"GERD": [(1, 'Omeprazole'), (2, 'Esomeprazole'), (3, 'Famotidine'), (4, 'Calcium Carbonate'), (5, 'Magnesium Hydroxide')],
+               "Allergies": [(1, 'Allegra 12 Hour (Fexofenadine)'), (2, 'Allegra 24 Hour (Fexofenadine)'), (3, "Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)"), (4, "Children's Allegra (Fexofenadine)"), (5, 'Chlor-Trimeton (Chlorpheniramine Maleate)'), (6, 'Claritin (Loratadine)View Product'), (7, 'Claritin Syrup (Loratadine)'), (8, 'Dristan Long Lasting Menthol Spray (Oxymetazoline)'), (9, 'Dristan Long Lasting Nasal Mist (Oxymetazoline)'), (10, 'Otrivin (Xylometazoline Hydrochloride)'), (11, 'Reactine (Cetirizine) 5 mg'), (12, 'Zyrtec (Cetrizine)'), (13, 'Benadryl')],
+               "Pain Control": [(1, 'drug A'), (2, 'drug B'), (3, 'drug C')],
+               "Constipation": [(1, 'Psyllium'), (2, 'Polycarbophil'), (3, 'Methylcellulose'), (4, 'Bisacodyl'), (5, 'Senna'), (6, 'Polyethylene glycol'), (7, 'Docusate'), (8, 'Magnesium citrate'), (9, 'Mineral oil'), (10, 'Glycerin suppositories'), (11, 'Saline enemas')]}
 
 st.title("Patient Over The Counter Recommendation Program")
 
@@ -52,4 +52,4 @@ if selection:
     if flag == len(OTC_df):
         st.markdown(f"All medications suitable for {selection}:")
         for med in medications[selection]:
-            st.markdown(med)
+            st.markdown(med[1])  # Only display the drug name
