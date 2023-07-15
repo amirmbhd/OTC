@@ -9,59 +9,69 @@ def load_images(image_name):
 c_image = 'Baner.png'
 load_images(c_image)
 
-disease_states = {
-    "GERD": ['Omeprazole', 'Esomeprazole', 'Famotidine', 'Calcium Carbonate', 'Magnesium Hydroxide'],
-    "Allergies": ['Allegra 12 Hour (Fexofenadine)', 'Allegra 24 Hour (Fexofenadine)', 
-                  'Buckleys Jack Jill Childrens Formula (Diphenhydramine HCI / Phenylephrine HCI)',
-                  'Childrens Allegra (Fexofenadine)', 'Chlor-Trimeton (Chlorpheniramine Maleate)',
-                  'Claritin (Loratadine)View Product', 'Claritin Syrup (Loratadine)',
-                  'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 'Dristan Long Lasting Nasal Mist (Oxymetazoline)',
-                  'Otrivin (Xylometazoline Hydrochloride)', 'Reactine (Cetirizine) 5 mg', 'Zyrtec (Cetrizine)', 'Benadryl'],
-    "Pain Control": ['drug A', 'drug B', 'drug C'],
-    "Constipation": ['Psyllium', 'Polycarbophil', 'Methylcellulose', 'Bisacodyl', 'Senna', 'Polyethylene glycol',
-                     'Docusate', 'Magnesium citrate', 'Mineral oil', 'Glycerin suppositories', 'Saline enemas']
-}
+disease_options = ["", "GERD", "Allergies","Pain Control", "Constipation"]
+
+# Predefine a dictionary with all medications per disease state
+medications = {"GERD": [(1, 'Omeprazole'), (2, 'Esomeprazole'), (3, 'Famotidine'), (4, 'Calcium Carbonate'), (5, 'Magnesium Hydroxide')],
+               "Allergies": [(1, 'Allegra 12 Hour (Fexofenadine)'), (2, 'Allegra 24 Hour (Fexofenadine)'), (3, "Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)"), (4, "Children's Allegra (Fexofenadine)"), (5, 'Chlor-Trimeton (Chlorpheniramine Maleate)'), (6, 'Claritin (Loratadine)View Product'), (7, 'Claritin Syrup (Loratadine)'), (8, 'Dristan Long Lasting Menthol Spray (Oxymetazoline)'), (9, 'Dristan Long Lasting Nasal Mist (Oxymetazoline)'), (10, 'Otrivin (Xylometazoline Hydrochloride)'), (11, 'Reactine (Cetirizine) 5 mg'), (12, 'Zyrtec (Cetrizine)'), (13, 'Benadryl')],
+               "Pain Control": [(1, 'drug A'), (2, 'drug B'), (3, 'drug C')],
+               "Constipation": [(1, 'Psyllium'), (2, 'Polycarbophil'), (3, 'Methylcellulose'), (4, 'Bisacodyl'), (5, 'Senna'), (6, 'Polyethylene glycol'), (7, 'Docusate'), (8, 'Magnesium citrate'), (9, 'Mineral oil'), (10, 'Glycerin suppositories'), (11, 'Saline enemas')]}
 
 st.title("Patient Over The Counter Recommendation Program")
+
 st.markdown(
     "Welcome to the OTC Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
 )
 
 st.sidebar.markdown("**Please select the disease state that you would like to get recommendation on?**")
-disease_options = ["", "GERD", "Allergies","Pain Control", "Constipation"]
-selection = st.sidebar.selectbox("Disease State:",disease_options)
+selection = st.sidebar.selectbox("Disease State:", disease_options)
+
+if selection == "Allergies":
+    st.sidebar.markdown("""
+    Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger.
+    Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, 
+    but if they are persistent or become worse, medical attention is recommended.
+    """)
 
 if selection:
-    OTC_df = pd.read_excel("OTCRecommendations.xlsx", sheet_name=selection, header=0)
+    OTC_df = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
 
-    # initial eligible medications list contains all medications
-    eligible_meds = [i+1 for i in range(len(disease_states[selection]))]  
+    # Strip leading and trailing whitespaces from column names
+    OTC_df.columns = OTC_df.columns.str.strip()
 
-    for index, row in OTC_df.iterrows():
-        question = row['Question']
-        option1 = row['Option 1']
-        option2 = row['Option 2']
-        user_response = st.radio(question, options=[option1, option2])
-        
-        if user_response == option1:
-            options = str(row['options'])
-            if options == 'NONE':
-                eligible_meds = []
-                st.markdown("Based on your responses, you are not eligible for over the counter medications. Please consult a healthcare provider.")
-                break
-            else:
-                if ',' in options:
-                    options = list(map(int, options.split(',')))
-                    eligible_meds = list(set(eligible_meds) & set(options))
-                else:
-                    options = [int(options)]
-                    eligible_meds = list(set(eligible_meds) & set(options))
+    # Initially, assume the patient is eligible for all medications
+    eligible_meds = [med[0] for med in medications[selection]]
+
+
+for index, row in OTC_df.iterrows():
+    question = row['Question']
+    option1 = row['Option 1']
+    option2 = row['Option 2']
+
+    user_response = st.radio(question, options=[option1, option2])
     
-    # Displaying the eligible medications to the user
+    if user_response == option1:
+        options = str(row['options'])
+
+        # If the options column says "NONE", the patient is not eligible for any medication
+        if options == 'NONE':
+            eligible_meds = []
+            st.markdown("Based on your responses, you are not eligible for over the counter medications. Please consult a healthcare provider.")
+            break
+        else:
+            # Check if options can be split, indicating multiple eligible medications
+            if ',' in options:
+                options = list(map(int, options.split(',')))  # Split and convert string numbers to int
+                eligible_meds = list(set(eligible_meds) & set(options))  # Intersection of eligible_meds and options
+            else:
+                # If options cannot be split, it is a single number
+                options = [int(options)]  # Convert the single number to int and put it in a list
+                eligible_meds = list(set(eligible_meds) & set(options))  # Intersection of eligible_meds and options
+
+
+    # Display eligible medications
     if eligible_meds:
-        meds_names = [disease_states[selection][i-1] for i in eligible_meds]
-        st.markdown("**Based on your responses, you may find the following medications useful:**")
-        for med in meds_names:
-            st.markdown("- " + med)
-    else:
-        st.markdown("**Based on your responses, there are no recommended over the counter medications. Please consult a healthcare provider.**")
+        st.markdown(f"Eligible medications for {selection}:")
+        for med in medications[selection]:
+            if med[0] in eligible_meds:  # Check if the medication is in the eligible list
+                st.markdown(med[1])  # Only display the drug name
