@@ -10,7 +10,7 @@ c_image = 'Baner.png'
 load_images(c_image)
 
 disease_states = {
-    "GERD": {1:'Omeprazole', 2:'Esomeprazole', 3:'Famotidine', 4:'Calcium Carbonate', 5:'Magnesium Hydroxide'},
+    "GERD": {1:'Prilosec (omeprazole)', 2:'Nexium (esomeprazole)', 3:'Pepcid (famotidine)', 4:'Tums (calcium carbonate)', 5:'Milk of Magnesia (magnesium hydroxide)'},
     "Allergies": {1:'Allegra 12 Hour (Fexofenadine)', 2:'Allegra 24 Hour (Fexofenadine)', 
                   3:"Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)",
                   4:"Children's Allegra (Fexofenadine)", 5:'Chlor-Trimeton (Chlorpheniramine Maleate)',
@@ -18,13 +18,13 @@ disease_states = {
                   8:'Dristan Long Lasting Menthol Spray (Oxymetazoline)', 
                   9:'Dristan Long Lasting Nasal Mist (Oxymetazoline)',
                   10:'Otrivin (Xylometazoline Hydrochloride)', 11:'Reactine (Cetirizine) 5 mg', 12:'Zyrtec (Cetrizine)', 13:'Benadryl'},
-    "Pain Control": {1:'Acetaminophen (Tylenol)', 2:'Ibuprofen (Advil, Motrin)', 
-                  3:"Naproxen (Aleve)",
-                  4:"Aspirin", 5:'Topical Lidocaine (Lidoderm)',
-                  6:'Menthol + Methyl salycilate (Icy Hot) ', 7:'Topical capsaicin',
-                  8:'"Acetaminophen + Aspirin + Caffeine (Excedrin, Goodys Powder)"', 
-                  9:'Benzocaine Oral Topical (Orajel)',
-                  10:'Antacids (Tums)'},
+    "Pain Control": {1:'Tylenol (acetaminophen)', 2:'Advil, Motrin (ibuprofen)', 
+                  3:"Aleve (naproxen)",
+                  4:"Aspirin", 5:'Lidoderm (topical lidocaine)',
+                  6:'Icy Hot (menthol + methyl salicylate)', 7:'Topical capsaicin',
+                  8:'"Excedrin, Goodys Powder (acetaminophen + aspirin + caffeine)"', 
+                  9:'Orajel (benzocaine oral topical)',
+                  10: 'Biofreeze (menthol) , 11:'Antacids(Tums)'},
     "Constipation": {1:'Psyllium', 2:'Polycarbophil', 3:'Methylcellulose', 4:'Bisacodyl', 5:'Senna', 6:'Polyethylene glycol',
                      7:'Docusate', 8:'Magnesium citrate', 9:'Mineral oil', 10:'Glycerin suppositories', 11:'Saline enemas'}
 }
