@@ -51,7 +51,7 @@ if selection:
     eligible_medications = set(disease_states[selection].keys())
     age = None
     
-if disease_state != " ":
+if disease_states != " ":
 
     df = pd.read_excel(disease_state + ".xlsx") # assuming filename is same as disease_state
 
