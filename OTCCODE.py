@@ -10,7 +10,7 @@ c_image = 'Baner.png'
 load_images(c_image)
 
 disease_states = {
-    " ": {1:'Omeprazole'},
+    "Please select an option": {1:'Omeprazole'},
     "GERD": {1:'Omeprazole', 2:'Esomeprazole', 3:'Famotidine', 4:'Calcium Carbonate', 5:'Magnesium Hydroxide'},
     "Allergies": {1:'Allegra 12 Hour (Fexofenadine)', 2:'Allegra 24 Hour (Fexofenadine)', 
                   3:"Buckley's Jack and Jill Children's Formula (Diphenhydramine HCI / Phenylephrine HCI)",
@@ -46,19 +46,10 @@ if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
     
     # Strip leading or trailing spaces from column names
-    
+    sheet.columns = sheet.columns.str.strip()
 
     eligible_medications = set(disease_states[selection].keys())
     age = None
-    
-if disease_states != " ":
-
-    df = pd.read_excel(disease_states + ".xlsx") # assuming filename is same as disease_state
-
-    if df.empty:
-        st.write("Welcome to the application!")
-        
-
 
     for i in range(len(sheet)):
         question = sheet.loc[i, "Question"]
