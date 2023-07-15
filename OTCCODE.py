@@ -37,10 +37,6 @@ if selection == "Allergies":
 
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
-    
-    # Strip leading or trailing spaces from column names
-    sheet.columns = sheet.columns.str.strip()
-
     eligible_medications = set(disease_states[selection].keys())
 
     for i in range(len(sheet)):
