@@ -33,11 +33,8 @@ st.sidebar.markdown("**Please select the disease state that you would like to ge
 selection = st.sidebar.selectbox("Disease State:", list(disease_states.keys()))
 
 if selection == "Allergies":
-    st.sidebar.markdown("""
-    Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger.
-    Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, 
-    but if they are persistent or become worse, medical attention is recommended.
-    """)
+    st.sidebar.text("Allergic rhinitis usually arises from a trigger in the environment and resolves over time in the absence of the trigger. Common symptoms include watery eyes, sneezing, runny nose, headache, and rash. Over-the-counter medications can help with these symptoms, but if they are persistent or become worse, medical attention is recommended.")
+
 if selection:
     sheet = pd.read_excel("OTCRecommendations.xlsx", sheet_name = selection)
     
@@ -52,7 +49,7 @@ if selection:
         option2 = sheet.loc[i, "Option 2"]
         options = str(sheet.loc[i, "options"])  # Cast to string to avoid errors in case the value is not a string
         
-        response = st.radio(question, options = [option1, option2])
+        response = st.radio(question, options = [option1, option2], index=1)  # index=1 to set "Option 2" as default
         
         if response == option1:
             if options.lower() == "none":
@@ -67,4 +64,3 @@ if selection:
         st.write("Based on your responses, you are eligible for the following medications:")
         for num in eligible_medications:
             st.write(disease_states[selection][num])
-
