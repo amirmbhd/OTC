@@ -15,7 +15,7 @@ load_images(c_image)
 
 
 
-st.title("Patient Over The Counter Recommendation Program")
+st.title("Patient OTC Recommendation Program")
 
 st.markdown(
     "Welcome to the OTC Recommendation Program! This program will tell you which OTC medications you are eligible for based on your answers to some survey questions.  **Select the disease state in the sidebar to get started.**"
