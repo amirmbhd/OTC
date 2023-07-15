@@ -67,3 +67,4 @@ if selection:
         for med in medications[selection]:
             if med[0] in eligible_meds:  # Check if the medication is in the eligible list
                 st.markdown(med[1])  # Only display the drug name
+
