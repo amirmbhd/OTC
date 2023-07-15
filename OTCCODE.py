@@ -22,7 +22,7 @@ disease_states = {
                   3:"Naproxen (Aleve)",
                   4:"Aspirin", 5:'Topical Lidocaine (Lidoderm)',
                   6:'Menthol + Methyl salycilate (Icy Hot) ', 7:'Topical capsaicin',
-                  8:'"Acetaminophen + Aspirin + Caffeine (Excedrin, Goody's Powder)"', 
+                  8:'"Acetaminophen + Aspirin + Caffeine (Excedrin, Goodys Powder)"', 
                   9:'Benzocaine Oral Topical (Orajel)',
                   10:'Antacids (Tums)'},
     "Constipation": {1:'Psyllium', 2:'Polycarbophil', 3:'Methylcellulose', 4:'Bisacodyl', 5:'Senna', 6:'Polyethylene glycol',
