@@ -13,7 +13,7 @@ def load_images(image_name):
 c_image = 'Baner.png'
 load_images(c_image)
 
-disease_options = ["", "GERD", "Allergies","GERD", "ALLERGIES"]
+disease_options = ["", "GERD", "Allergies","Pain Control", "Constipation"]
 
 
 st.title("Patient Over The Counter Recommendation Program")
