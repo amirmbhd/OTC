@@ -13,7 +13,7 @@ def load_images(image_name):
 c_image = 'Baner.png'
 load_images(c_image)
 
-disease_state = ["GERD", "Allergies","GERD", "ALLERGIES"]
+disease_options = ["GERD", "Allergies","GERD", "ALLERGIES"]
 
 
 st.title("Patient Over The Counter Recommendation Program")
@@ -23,7 +23,7 @@ st.markdown(
 )
 
 st.sidebar.markdown("Please select the disease state that you would like to get recommendation on?")
-selection = st.sidebar.selectbox(disease_state)
+selection = st.sidebar.selectbox(disease_options)
 
                                  
 st.sidebar.markdown("**Start Here**", unsafe_allow_html=True)
