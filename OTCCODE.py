@@ -104,10 +104,10 @@ if selection:
             else:
                 option_numbers = list(map(int, options.split(',')))
                 eligible_medications.intersection_update(option_numbers)
-    
-        if eligible_medications:
-            st.write("Based on your responses, you are eligible for the following medications:")
-            for num in eligible_medications:
-                st.write(disease_states[selection][num])
-        else:
-            st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy. ")
+
+    if eligible_medications:
+        st.write("Based on your responses, you are eligible for the following medications:")
+        for num in eligible_medications:
+            st.write(disease_states[selection][num])
+    else:
+        st.write("Based on your responses you are not eligible for over the counter medications. Please consult a healthcare provider or contact your local pharmacy. ")
